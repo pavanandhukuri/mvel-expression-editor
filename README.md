@@ -1,6 +1,11 @@
 # MVEL Expression Editor
 
-This is an Angular based editor to create MVEL expressions. The editor is based on Angular Elements so it can be used in any non angular application as well. 
+This is an Angular based editor to create MVEL expressions. The editor is based on Angular Elements so it can be used in any non angular application as well. The editor currently supports the following
+
+* Properties selection in the expression
+* Adding fixed values
+* Adding custom expression
+* Adding nested expression
 
 # Properties
 ## Inputs
