@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MVEL Expression Editor</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body>
+  <mvel-expression-editor></mvel-expression-editor>
+  <script type="text/javascript" src="mvel-expression-editor.js"></script>
+  <script>
+    let el = document.querySelector('mvel-expression-editor');
+    el.properties = [{ name: "one", value: "one" }, { name: "two", value: "two" }];
+    el.expression = "( one > two )";
+    el.addEventListener('onSubmitEvent', function (event) {
+      
+    });
+  </script><br />
+</body>
+
+</html>

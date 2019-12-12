@@ -1,0 +1,41 @@
+<div class="operand-group">
+  <div class="input-group input-group-sm">
+    <div class="input-group-prepend" *ngIf="type!=''">
+      <span class="input-group-text">
+        <span *ngIf="type=='PROPERTY'">@</span>
+        <span *ngIf="type=='FIXED'">#</span>
+        <span *ngIf="type=='NESTED'">()</span>
+        <span *ngIf="type=='CUSTOM'">{{ '{' }}}</span>
+      </span>
+    </div>
+    <select *ngIf="type=='PROPERTY'" [(ngModel)]="property" class="form-control">
+      <option *ngFor="let obj of properties" [ngValue]="obj.value">{{obj.name}}</option>
+    </select>
+    <input *ngIf="type=='FIXED'" [(ngModel)]="fixedValue" class="form-control" />
+    <span>
+      <app-expression *ngIf="type=='NESTED'" [operandType]="'ARITHMETIC'" #subExpression [properties]="properties"
+        (onChange)="detectChange()">
+      </app-expression>
+    </span>
+    <input *ngIf="type=='CUSTOM'" [(ngModel)]="customExpression" class="form-control" />
+    <span class="text-muted" *ngIf="type==''"><em>Select&nbsp;</em></span>
+    <div class="input-group-append">
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm"
+          aria-controls="dropdown-basic">
+          <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" (click)="type='PROPERTY'">@: Property</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="type='FIXED'">#: Fixed Value</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="type='NESTED'">(): Nested Expression</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="type='CUSTOM'">{{ '{' }}}: Custom
+              Expression</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="type=''">Remove</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

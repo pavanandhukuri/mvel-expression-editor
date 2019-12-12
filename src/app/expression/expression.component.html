@@ -1,0 +1,19 @@
+<span class="bracket">(</span>&nbsp;&nbsp;<app-operand-container #leftOperand [properties]="properties" (onChange)="detectChange()">
+</app-operand-container>
+&nbsp;&nbsp;&nbsp;<select [(ngModel)]="operator" class="form-control-sm">
+    <option value=">" *ngIf="operandType=='LOGICAL'">&gt;</option>
+    <option value=">=" *ngIf="operandType=='LOGICAL'">&gt;=</option>
+    <option value="<" *ngIf="operandType=='LOGICAL'">&lt;</option>
+    <option value="<=" *ngIf="operandType=='LOGICAL'">&lt;=</option>
+    <option value="==" *ngIf="operandType=='LOGICAL'">equals</option>
+    <option value="!=" *ngIf="operandType=='LOGICAL'">does not equal</option>
+    <option value="soundslike" *ngIf="operandType=='LOGICAL'">sounds like</option>
+    <option value="+" *ngIf="operandType=='ARITHMETIC'">+</option>
+    <option value="-" *ngIf="operandType=='ARITHMETIC'">-</option>
+    <option value="*" *ngIf="operandType=='ARITHMETIC'">*</option>
+    <option value="/" *ngIf="operandType=='ARITHMETIC'">/</option>
+    <option value="%" *ngIf="operandType=='ARITHMETIC'">%</option>
+    <option value="strsim" *ngIf="operandType=='ARITHMETIC'">similar to</option>
+</select>&nbsp;&nbsp;&nbsp;
+<app-operand-container #rightOperand [properties]="properties" (onChange)="detectChange()"></app-operand-container>
+&nbsp;&nbsp;<span class="bracket">)</span>
