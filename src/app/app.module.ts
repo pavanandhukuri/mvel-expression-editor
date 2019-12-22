@@ -8,11 +8,10 @@ import { ExpressionComponent } from './expression/expression.component';
 import { OperandContainerComponent } from './operand-container/operand-container.component';
 
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent, ExpressionGroupComponent, ExpressionComponent, OperandContainerComponent],
-  imports: [BrowserModule, FormsModule, BsDropdownModule.forRoot()],
+  imports: [BrowserModule, FormsModule],
   providers: [],
   entryComponents: [AppComponent]
 })

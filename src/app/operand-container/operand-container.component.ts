@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, EventEmitter, Output, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { ExpressionGenerator } from '../expression-generator';
 
 @Component({
@@ -6,16 +6,12 @@ import { ExpressionGenerator } from '../expression-generator';
   templateUrl: './operand-container.component.html',
   styleUrls: ['./operand-container.component.css']
 })
-export class OperandContainerComponent implements OnInit, ExpressionGenerator, DoCheck {
-  
-  type: string = '';
-  property: string = '';
-  fixedValue: string = '';
-  customExpression: string = '';
+export class OperandContainerComponent implements OnInit {
+
+  @Input()
+  operandData: any;
 
   @ViewChild("subExpression") subExpressionView: ExpressionGenerator;
-
-  @Output("onChange") onChange: EventEmitter<void> = new EventEmitter<void>();
 
   @Input()
   properties: Array<any> = [];
@@ -23,29 +19,21 @@ export class OperandContainerComponent implements OnInit, ExpressionGenerator, D
   constructor() { }
 
   ngOnInit() {
-  }
-
-  getExpression() {
-    switch (this.type) {
-      case "PROPERTY":
-        return this.property;
-      case "FIXED":
-        return this.fixedValue;
-      case "CUSTOM":
-        return this.customExpression;
-      case "NESTED":
-        return this.subExpressionView.getExpression();
-      default:
-        return '';
+    if (this.operandData == null || this.operandData == undefined) {
+      this.operandData = {};
     }
   }
 
-  ngDoCheck(): void {
-    this.onChange.emit();
-  }  
+  initializeSubExpression() {
+    if (this.operandData.type == 'NESTED') {
+      this.operandData.expressionData = {
+        operator: '',
+        leftOperand: {},
+        rightOperand: {}
+      };
+    } else {
+      delete this.operandData.expressionData;
+    }
 
-  detectChange(){
-    this.onChange.emit();
   }
-
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChildren, QueryList, Input, Output, EventEmitter } from '@angular/core';
-import { ExpressionComponent } from '../expression/expression.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { ExpressionGeneratorService } from '../expression-generator.service';
 
 @Component({
   selector: 'app-expression-group',
@@ -8,34 +8,35 @@ import { ExpressionComponent } from '../expression/expression.component';
 })
 export class ExpressionGroupComponent implements OnInit {
 
-  logicalExpressions: Array<any> = [];
-  expression: string = "";
-  conjunctions: Array<any> = [];
-
-  @ViewChildren("expressionView") expressions: QueryList<ExpressionComponent>;
+  @Input()
+  expressions: Array<any>;
 
   @Input()
-  properties: Array<any> = [];  
+  properties: Array<any>;
 
-  constructor() { }
+  constructor(private expressionGenerator: ExpressionGeneratorService) { }
 
   ngOnInit() {
-    this.logicalExpressions = [{}]
+    // if (this.expressions == null || this.expressions.length == 0) {
+    //   this.expressions = [{
+    //     expressionData: {
+    //       operator: '',
+    //       leftOperand: {},
+    //       rightOperand: {}
+    //     }, conjunction: ''
+    //   }];
+    // }
   }
 
-  detectChange() {
-    this.expression = "";
-    var count = 0
-    this.expressions && this.expressions.forEach(ex => {
-      if (count > 0) {
-        this.expression += " " + (this.conjunctions[count - 1]?this.conjunctions[count - 1]:'') + " ";
-      }
-      this.expression += ex.getExpression()
-      count++;
+  getExpression(): string {
+    let expression: string = '';
+    this.expressions.forEach(ex => {
+      expression += this.expressionGenerator.buildExpression(ex.expressionData) + " " + (ex.conjunction ? ex.conjunction : '');
     });
+    return expression;
   }
 
-  getExpression():string{
-    return this.expression;
+  getExpressionModel(): Array<any> {
+    return this.expressions;
   }
 }
