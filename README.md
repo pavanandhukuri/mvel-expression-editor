@@ -9,10 +9,15 @@ This is an Angular based editor to create MVEL expressions. The editor is based 
 
 # Properties
 ## Inputs
-Currently the editor only accepts one input called ```properties```. This is an array of name, value objects and can be used to populate properties for assistance.
+
+```properties``` - This is an array of name, value objects and can be used to populate properties for assistance. Objects of this array has to contain two properties ```name``` and ```value```
+
+```expressions``` - The design time data for prepopulating the editor with already saved expressions.
 
 ## Outputs
-Currently the editor has a button ```Submit``` which emits an event ```onSubmitEvent``` with the expression that is generated as part of the editor. This can be subscribed to to get the expression needed.
+Currently the editor has a button ```Submit``` which emits an event ```onSubmit``` with the expression that is generated as part of the editor. This can be subscribed to to get the expression needed.
+
+Along with the expression, the event detail also consists a model. This should be stored and passed as input ```expressions``` to provide editing capability.
 
 # Usage
 ## In Angular
@@ -22,13 +27,14 @@ In componenet.ts
 ```typescript
 let properties:Array<any> = [{name:"one", value":"one"}, {name:"one", value":"one"}];
 
-onSubmit(expression){
-  alert(expression);
+onSubmit(event){
+  alert(event.expression);
+  alert(event.model)
 }
 ```
 HTML:
 ```html
-<mvel-expression-editor [properties]="properties" (onSubmitEvent)="onSubmit()"></mvel-expression-editor>
+<mvel-expression-editor [properties]="properties" (onSubmit)="onSubmit()"></mvel-expression-editor>
 ```
 
 
@@ -43,8 +49,15 @@ HTML:
 <script>
     let el = document.querySelector('mvel-expression-editor');
     el.properties = [{ name: "one", value: "one" }, { name: "two", value: "two" }];
+
+    /**
+     * If a previously saved model is already present, then it can be passed as below.
+     **/
+    el.expressions = model;
+
     el.addEventListener('onSubmitEvent', function (event) {
-      alert(event.detail);
+      alert(event.detail.expression);
+      alert(event.detail.model);
     });
 </script>
 ```
