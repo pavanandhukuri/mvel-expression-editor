@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ExpressionGroupComponent } from './expression-group/expression-group.component';
 
 @Component({
@@ -6,25 +6,20 @@ import { ExpressionGroupComponent } from './expression-group/expression-group.co
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnChanges {
-  
+export class AppComponent {
+
   @Input()
   properties: Array<any> = [];
 
   @Input()
-  expression: string;
+  expressions: Array<any> = [];
 
-  @Output('onSubmitEvent')
-  onSubmitEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output('onSubmit')
+  onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild("expressionGroup") expressionGroupView : ExpressionGroupComponent;
+  @ViewChild("expressionGroup") expressionGroupView: ExpressionGroupComponent;
 
-  submitExpression(){
-    this.onSubmitEvent.emit(this.expressionGroupView.getExpression());
+  submitExpression() {
+    this.onSubmit.emit({ expression: this.expressionGroupView.getExpression(), model: this.expressionGroupView.getExpressionModel() });
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  } 
-
 }

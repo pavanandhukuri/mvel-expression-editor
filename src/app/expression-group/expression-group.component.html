@@ -1,17 +1,12 @@
-<div *ngFor="let expression of logicalExpressions;let i=index">
-  <app-expression #expressionView [expression]="expression" [operandType]="'LOGICAL'" [properties]="properties" (onChange)="detectChange()">
-  </app-expression>&nbsp;&nbsp;
-  <select *ngIf="i!=logicalExpressions.length-1" class="form-control-sm" [(ngModel)]="conjunctions[i]">
-    <option value="&&">and</option>
-    <option value="||">or</option>
-  </select>
+<div *ngFor="let expression of expressions;let i=index" class="expression-container">
+  <app-expression #expressionView [operandType]="'LOGICAL'" [properties]="properties"
+    (onChange)="detectChange()" [(expressionData)]="expression.expressionData">
+  </app-expression>
+  <div class="logical-operator-container">
+    <select *ngIf="i!=expressions.length-1" [(ngModel)]="expression.conjunction">
+      <option value="&&">and</option>
+      <option value="||">or</option>
+    </select>
+  </div>
 </div>
-<a (click)="logicalExpressions.push({})" class="addnewbtn"><em>Add Another Expression</em></a>
-<br />
-<br />
-
-<h5>Compiled Expression:</h5>
-<br />
-<div class="card card-body bg-light">
-{{expression}}
-</div>
+<a (click)="expressions.push({})" class="addnewbtn"><em>Add Another Expression</em></a>

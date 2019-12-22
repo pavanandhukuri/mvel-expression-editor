@@ -1,6 +1,29 @@
-app-operand-container{
+.operand-container {
+    margin-top:5px;
+}
+.expression {
+    padding:5px;
+    border:1px solid #aeaeae;
+}
+.expression-container{
+    border-left:1px solid #aeaeae;
+    display:inline-block;
+}
+.connector {
+    width:10px;
+    height:1px;
+    background-color:#aeaeae;
+    display: inline-block;
     vertical-align: middle;
 }
-.bracket{
-    font-size: 24px;
+.left-right-txt{
+    width:40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.operator {
+    margin:0 5px;
+}
+.app-operand-container {
+    vertical-align: middle;
 }
